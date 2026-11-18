@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antigravity 新手攻略與必學秘訣｜從零入門到高效實戰</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --surface-alt: #f0f4fa;
+      --surface-code: #0f172a;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-soft: rgba(37, 99, 235, 0.1);
+      --primary-hover: #1d4ed8;
+      --accent: #0ea5e9;
+      --tip-bg: #ecfdf5;
+      --tip-border: #10b981;
+      --tip-text: #065f46;
+      --warn-bg: #fff7ed;
+      --warn-border: #f97316;
+      --warn-text: #9a3412;
+      --danger-bg: #fef2f2;
+      --danger-border: #ef4444;
+      --danger-text: #991b1b;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 14px;
+      --radius-sm: 9px;
+      --sidebar-w: 272px;
+      --font-sans: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-alt: #1e293b;
+      --surface-code: #020617;
+      --text: #f1f5f9;
+      --text-muted: #cbd5e1;
+      --text-subtle: #94a3b8;
+      --border: #1f2937;
+      --primary: #3b82f6;
+      --primary-soft: rgba(59, 130, 246, 0.16);
+      --primary-hover: #60a5fa;
+      --accent: #38bdf8;
+      --tip-bg: rgba(16, 185, 129, 0.12);
+      --tip-border: #10b981;
+      --tip-text: #6ee7b7;
+      --warn-bg: rgba(249, 115, 22, 0.12);
+      --warn-border: #f97316;
+      --warn-text: #fdba74;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --danger-border: #ef4444;
+      --danger-text: #fca5a5;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    kbd {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78em;
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    /* Layout */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 22px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow-y: auto;
+      z-index: 40;
+      transition: transform 0.25s ease;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 6px;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+    }
+    .brand-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .brand-sub {
+      font-size: 0.74rem;
+      color: var(--text-subtle);
+    }
+
+    .nav-group-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-subtle);
+      padding: 0 10px;
+      margin-bottom: 6px;
+    }
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 11px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-link:hover {
+      background: var(--surface-alt);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-link.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .sidebar-progress {
+      margin-top: auto;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #10b981);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    /* Main Content */
+    .main-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Toolbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .menu-btn {
+      display: none;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 9px 14px 9px 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .global-track-switch {
+      display: inline-flex;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .track-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .track-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 7px 12px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-btn:hover { border-color: var(--primary); }
+
+    /* Container */
+    .container {
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 28px 72px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.09), rgba(14, 165, 233, 0.08));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 28px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 11px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 72ch;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+    }
+    .stat-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .stat-pill strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .stat-pill span {
+      font-size: 0.8rem;
+      color: var(--text-subtle);
+    }
+
+    /* Filter Chips */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .filter-chip {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .filter-chip.active, .filter-chip:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 36px;
+      scroll-margin-top: 76px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 1.32rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .section-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    /* Cards & Grids */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.04rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card p {
+      margin: 0 0 10px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .card li { margin-bottom: 5px; }
+
+    /* Callouts */
+    .callout {
+      border-radius: 12px;
+      padding: 13px 16px;
+      border-left: 4px solid;
+      margin: 14px 0;
+      font-size: 0.91rem;
+    }
+    .callout-tip {
+      background: var(--tip-bg);
+      border-color: var(--tip-border);
+      color: var(--tip-text);
+    }
+    .callout-warn {
+      background: var(--warn-bg);
+      border-color: var(--warn-border);
+      color: var(--warn-text);
+    }
+    .callout-danger {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger-text);
+    }
+    .callout strong { display: block; margin-bottom: 3px; }
+
+    /* Dual-Track Prompt Card */
+    .prompt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .prompt-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .prompt-card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cmd-badge {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 3px 9px;
+      border-radius: 7px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+    }
+    .local-tabs {
+      display: inline-flex;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 3px;
+      gap: 3px;
+    }
+    .local-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .local-tab.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .prompt-desc {
+      color: var(--text-muted);
+      font-size: 0.91rem;
+      margin: 0 0 12px;
+    }
+    .prompt-box {
+      background: var(--surface-code);
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 13px 15px;
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(255, 255, 255, 0.22); }
+    .prompt-text { padding-right: 72px; display: block; }
+    .track-panel { display: none; }
+    .track-panel.active { display: block; }
+
+    /* Collapsible Pitfall Card */
+    .pitfall-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .pitfall-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 15px 18px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .pitfall-trigger:hover { background: var(--surface-alt); }
+    .pitfall-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pitfall-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--danger-bg);
+      color: var(--danger-border);
+      display: grid;
+      place-items: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .pitfall-chevron {
+      color: var(--text-subtle);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .pitfall-item.open .pitfall-chevron { transform: rotate(180deg); }
+    .pitfall-body {
+      display: none;
+      padding: 0 18px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .pitfall-item.open .pitfall-body { display: block; }
+    .vs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .vs-bad, .vs-good {
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+    }
+    .vs-bad {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid color-mix(in srgb, var(--danger-border) 35%, transparent);
+    }
+    .vs-good {
+      background: var(--tip-bg);
+      color: var(--tip-text);
+      border: 1px solid color-mix(in srgb, var(--tip-border) 35%, transparent);
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      gap: 9px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 15px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .check-item:hover { border-color: var(--primary); }
+    .check-item input {
+      margin-top: 4px;
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .check-item.done .check-title {
+      text-decoration: line-through;
+      color: var(--text-subtle);
+    }
+    .check-title { font-weight: 700; font-size: 0.94rem; display: block; }
+    .check-sub { font-size: 0.84rem; color: var(--text-muted); }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--surface-alt);
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 60;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 36px 18px;
+      color: var(--text-subtle);
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+    }
+
+    .hidden { display: none !important; }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.45);
+      z-index: 35;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .overlay.show { display: block; }
+      .main-wrap { margin-left: 0; }
+      .menu-btn { display: inline-flex; align-items: center; }
+      .topbar { padding: 11px 16px; }
+      .container { padding: 20px 16px 64px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">AGY</div>
+        <div>
+          <div class="brand-title">Antigravity 新手攻略</div>
+          <div class="brand-sub">操作心法 · 必學秘訣 · 避坑手冊</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="nav-group-label">快速導航</div>
+        <ul class="nav-list" id="navList">
+          <li><a class="nav-link active" href="#overview">1. 認識三大介面</a></li>
+          <li><a class="nav-link" href="#mindset">2. 新手 4 大黃金心法</a></li>
+          <li><a class="nav-link" href="#slash">3. 斜線指令必學實戰</a></li>
+          <li><a class="nav-link" href="#shortcuts">4. IDE 與 CLI 加速秘訣</a></li>
+          <li><a class="nav-link" href="#custom">5. 讓 AI 越用越懂你</a></li>
+          <li><a class="nav-link" href="#pitfalls">6. 新手 8 大地雷避坑</a></li>
+          <li><a class="nav-link" href="#checklist">7. 新手通關 Checklist</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-progress">
+        <div class="progress-header">
+          <span>通關進度</span>
+          <span id="progressText">0 / 10</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main-wrap">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="開啟目錄">☰ 目錄</button>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="搜尋指令、秘訣、避坑（例如：/plan、@、沙盒、Tab）..." />
+        </div>
+        <div class="global-track-switch" title="一鍵切換全頁範例視角">
+          <button class="track-btn active" data-global-track="office">💼 日常辦公視角</button>
+          <button class="track-btn" data-global-track="dev">💻 程式開發視角</button>
+        </div>
+        <button class="theme-btn" id="themeBtn" aria-label="切換深淺模式">🌙 深色模式</button>
+      </header>
+
+      <main class="container">
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-badge">⚡ 100% 實戰導向 · 辦公與開發雙軌對照</div>
+          <h1>Antigravity 新手攻略與必學秘訣</h1>
+          <p>
+            把 Antigravity 當成「能直接動手幫你做事的 AI 同事」，而不是只會聊天的問答機器人。這份手冊整理了最核心的操作心法、必學斜線指令（Slash Commands）、常用快捷鍵與新手最容易踩的 8 個地雷。
+          </p>
+          <div class="hero-stats">
+            <div class="stat-pill">
+              <strong>3 大工作介面</strong>
+              <span>桌面版 / IDE / agy CLI</span>
+            </div>
+            <div class="stat-pill">
+              <strong>9 個必學斜線指令</strong>
+              <span>含一鍵複製雙軌 Prompt</span>
+            </div>
+            <div class="stat-pill">
+              <strong>8 大避坑排雷卡</strong>
+              <span>錯誤寫法 vs 高手對策</span>
+            </div>
+            <div class="stat-pill">
+              <strong>10 項通關檢核</strong>
+              <span>做完直接變熟手</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category Filters -->
+        <div class="filter-bar" id="filterBar">
+          <button class="filter-chip active" data-filter="all">全部內容</button>
+          <button class="filter-chip" data-filter="surface">三大介面</button>
+          <button class="filter-chip" data-filter="mindset">操作心法</button>
+          <button class="filter-chip" data-filter="slash">斜線指令</button>
+          <button class="filter-chip" data-filter="speed">快捷與客製化</button>
+          <button class="filter-chip" data-filter="pitfall">避坑指南</button>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          找不到符合關鍵字的秘訣卡片，試試清空搜尋列或切換「全部內容」。
+        </div>
+
+        <!-- Section 1: Surfaces -->
+        <section class="section filterable" id="overview" data-cat="surface">
+          <div class="section-head">
+            <h2 class="section-title">1. 先搞懂你面前的三大介面</h2>
+            <span class="section-tag">新手第一步</span>
+          </div>
+          <div class="grid-3">
+            <article class="card searchable">
+              <h3>🖥️ Antigravity 2.0 桌面版</h3>
+              <p>最推薦新手起步的「AI 任務指揮中心」，適合整理文件、跑自動化與多任務管理。</p>
+              <ul>
+                <li><strong>左側欄</strong>：管理 <code>Projects</code>（工作區）、<code>Scheduled Tasks</code>（定時任務）、<code>Skills &amp; Customizations</code> 與 <code>Settings</code>。</li>
+                <li><strong>中間對話畫布</strong>：支援 <code>/</code> 指令、<code>@</code> 引用檔案、直接拖放圖片或文件。</li>
+                <li><strong>輔助面板</strong>：即時查看子代理、背景任務、Artifacts 產出與終端機狀態。</li>
+              </ul>
+            </article>
+
+            <article class="card searchable">
+              <h3>🧩 Antigravity IDE</h3>
+              <p>內建於 VS Code 體驗的 AI 原生開發環境，寫程式、改文件與看 Diff 差異最強。</p>
+              <ul>
+                <li><strong>Antigravity Tab</strong>：隨打字自動預測下一行甚至整段修改（按 <kbd>Tab</kbd> 接受）。</li>
+                <li><strong>Inline Command</strong>：按 <kbd>Ctrl+I</kbd>（Mac 為 <kbd>⌘+I</kbd>）只改選取的那幾行。</li>
+                <li><strong>Sidebar Agent</strong>：能改多檔、跑測試、查看紅綠 <strong>Visual Diff</strong> 再決定要不要套用。</li>
+              </ul>
+            </article>
+
+            <article class="card searchable">
+              <h3>⌨️ Antigravity CLI（<code>agy</code>）</h3>
+              <p>在終端機裡一秒召喚 AI 的極速文字介面，適合老手與伺服器／腳本工作。</p>
+              <ul>
+                <li>在終端機輸入 <code>agy</code> 直接開啟互動介面。</li>
+                <li>輸入 <code>agy --help</code> 看命令列參數；進入後輸入 <code>/help</code> 看所有指令。</li>
+                <li>設定檔位於 <code>~/.gemini/antigravity-cli/settings.json</code>；離開按 <kbd>Ctrl+D</kbd> 兩次或 <code>/exit</code>。</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 2: 4 Golden Mindsets -->
+        <section class="section filterable" id="mindset" data-cat="mindset">
+          <div class="section-head">
+            <h2 class="section-title">2. 讓 AI 一次做對的 4 大黃金心法</h2>
+            <span class="section-tag">80/20 法則</span>
+          </div>
+
+          <div class="grid-2">
+            <article class="card searchable">
+              <h3>📁 心法 1：先開對 Project（工作區）再發問</h3>
+              <p>Antigravity 是「圍繞資料夾工作」的。先在左側切換到對的專案資料夾，它才會優先讀取該資料夾的檔案與專屬規則。</p>
+              <div class="callout callout-tip">
+                <strong>秘訣</strong>
+                在 <code>Settings</code> 中，<strong>Project-Level Settings（專案設定）優先於 Global Settings（全域設定）</strong>，重要資料夾可單獨鎖緊安全權限。
+              </div>
+            </article>
+
+            <article class="card searchable">
+              <h3>🎯 心法 2：用 <code>@</code> 指名道姓 + 拖放截圖</h3>
+              <p>不要只說「改一下剛剛那個檔案」。在對話框輸入 <code>@</code> 可以直接點名檔案、資料夾、歷史對話、終端機輸出或規則，精準度立刻翻倍。</p>
+              <div class="callout callout-tip">
+                <strong>秘訣</strong>
+                遇到畫面報錯、表格截圖或設計草圖，直接把圖片拖進聊天框，AI 會一起看圖判讀。
+              </div>
+            </article>
+
+            <article class="card searchable">
+              <h3>🧭 心法 3：複雜任務「先對齊、再動手」</h3>
+              <p>最浪費時間的用法，就是一句模糊的話讓 AI 跑 5 分鐘最後產出完全不是你要的東西。複雜任務先用 <code>/grill-me</code> 或 <code>/plan</code> 確認方向。</p>
+              <div class="callout callout-tip">
+                <strong>秘訣</strong>
+                在 IDE 中也可以切換成 <strong>Planning Mode（規劃模式）</strong>，先審核步驟清單再讓它寫檔。
+              </div>
+            </article>
+
+            <article class="card searchable">
+              <h3>🛡️ 心法 4：看懂 4 種權限安全檔位</h3>
+              <p>在 <code>Settings → Tool Execution Policy</code> 中決定 AI 執行指令前要不要問你，兼顧效率與安全：</p>
+              <ul>
+                <li><code>request-review</code>（推薦新手）：改動或跑指令前先給你看過再放行。</li>
+                <li><code>proceed-in-sandbox</code>：在隔離沙盒環境內自動跑，最安全又省心。</li>
+                <li><code>strict</code>：最高戒備，嚴格把關每個敏感動作。</li>
+                <li><code>always-proceed</code>：全自動放行，僅建議用於可隨時還原的練習環境。</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 3: Slash Commands (Dual Track) -->
+        <section class="section filterable" id="slash" data-cat="slash">
+          <div class="section-head">
+            <h2 class="section-title">3. 必學斜線指令（Slash Commands）實戰庫</h2>
+            <span class="section-tag">輸入 / 直接召喚 · 支援雙軌切換</span>
+          </div>
+
+          <div class="callout callout-warn">
+            <strong>怎麼用最順手？</strong>
+            只要在對話框輸入 <code>/</code> 就會跳出選單。點擊下方每張卡片右上角的「日常辦公」或「程式開發」標籤，即可切換範例並一鍵複製可直接套用的 Prompt！
+          </div>
+
+          <!-- /grill-me -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/grill-me</span> 需求還很模糊？叫 AI 先來問倒你</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">AI 會化身專業顧問，一次一題把你的目標、對象、格式與限制條件問清楚，避免做白工。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/grill-me 我想整理這個月部門的會議紀錄和待辦追蹤表，做成一份給主管看的週報，但我還沒想好呈現格式。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/grill-me 我想為目前的專案加上使用者登入與權限管理，請先訪談確認架構、資料庫與安全性需求，再開始動手。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /plan -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/plan</span> 任務步驟很多？先寫出施工藍圖</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">強迫 AI 在動手改檔案前先列出完整步驟、會動到哪些檔案、以及預期結果，讓你先點頭再執行。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/plan 請先規劃怎麼把 @報表資料夾 裡這 12 份 CSV 合併成一份總表、抓出異常值並產出摘要報告，確認步驟後再執行。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/plan 請分析 @src/api/ 並規劃把舊版同步查詢重構為非同步與快取機制的完整步驟，先給我修改清單與風險評估。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /browser -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/browser</span> 需要操作網頁、查動態頁面或填表？交給瀏覽器代理</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">內建瀏覽器子代理會真的開網頁點擊、捲動、抓畫面或驗證前端操作，比純文字搜尋更可靠。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/browser 請幫我打開這三間廠商的官網定價頁面，截圖並整理成一份方案價格與功能比較表。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/browser 請打開本機預覽網址 http://localhost:3000，實際測試登入表單、送出按鈕與手機版面是否有跑版。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /schedule -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/schedule</span> 固定要做的事？設成背景自動排程</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">設定一次性的定時提醒，或每天／每週自動執行的背景任務，並可在左側 <code>Scheduled Tasks</code> 統一管理。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/schedule 每個星期五下午 4 點自動檢查 @工作筆記 資料夾這週新增的內容，幫我彙整成下週一早會的 5 點摘要。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/schedule 每天早上 9 點自動檢查 @logs/error.log 是否有新的例外錯誤，若有異常請整理成問題清單通知我。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /learn -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/learn</span> 糾正過一次的事，永久教會它</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">當你發現自己第二次提醒同一件事（語氣、格式、命名規範、常用路徑），馬上用 <code>/learn</code> 寫成永久規則或技能。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/learn 以後凡是幫我整理會議紀錄，一律使用「決議事項 / 負責人 / 預計完成日」三欄表格，且不要省略原始數據單位。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/learn 請把剛才修復 Windows PowerShell 編碼與虛擬環境啟動的正確指令記錄成專案規則，以後跑測試一律照此執行。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /compact -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/compact</span> 對話聊太長變鈍了？一鍵瘦身不失憶</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">對話太長會塞滿上下文視窗導致遺忘前面的要求；<code>/compact</code> 會濃縮關鍵脈絡、清出空間繼續衝刺。</p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/compact 請保留目前定案的報告架構與所有真實數據結論，把前面反覆討論修改的草稿過程壓縮摘要。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/compact 請保留已確認的架構決策、修改過的檔案路徑與測試指令，壓縮前面的除錯試誤紀錄。</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- /goal + /teamwork + /boost -->
+          <article class="prompt-card searchable" data-card>
+            <div class="prompt-card-top">
+              <h3 class="prompt-card-title"><span class="cmd-badge">/goal · /teamwork · /boost</span> 三大重火力進階指令</h3>
+              <div class="local-tabs">
+                <button class="local-tab active" data-track="office">💼 日常辦公</button>
+                <button class="local-tab" data-track="dev">💻 程式開發</button>
+              </div>
+            </div>
+            <p class="prompt-desc">
+              <code>/goal</code> 適合長時徹底執行不半途停手；<code>/teamwork</code> 適合派多個專家子代理分頭並進；<code>/boost</code> 適合高難度推理與嚴格驗證。
+            </p>
+            <div class="track-panel active" data-panel="office">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/teamwork 請把這份 50 頁市場調查報告分組處理：一組負責提煉數據圖表重點、一組負責整理競品優劣比較、最後由你統整成一份高階簡報大綱。</span>
+              </div>
+            </div>
+            <div class="track-panel" data-panel="dev">
+              <div class="prompt-box">
+                <button class="copy-btn" type="button">複製範本</button>
+                <span class="prompt-text">/boost 請深入排查 @src/checkout/ 在高並發下出現重複扣款的根本原因，從資料庫鎖、交易邊界到重試機制完整驗證並補齊測試。</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Section 4: IDE & CLI Shortcuts -->
+        <section class="section filterable" id="shortcuts" data-cat="speed">
+          <div class="section-head">
+            <h2 class="section-title">4. IDE 快捷鍵與 CLI 加速秘訣</h2>
+            <span class="section-tag">效率翻倍</span>
+          </div>
+
+          <div class="table-wrap searchable">
+            <table>
+              <thead>
+                <tr>
+                  <th>操作 / 快捷鍵</th>
+                  <th>所在介面</th>
+                  <th>實戰用途與新手秘訣</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>Tab</kbd> / <kbd>Esc</kbd></td>
+                  <td>Antigravity IDE</td>
+                  <td>接受或取消 AI 的自動補全、Supercomplete 修改建議，以及 <strong>Tab to Jump</strong>（自動跳到下一個該改的位置）與 <strong>Tab to Import</strong>。</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd>+<kbd>→</kbd>（Mac：<kbd>⌘</kbd>+<kbd>→</kbd>）</td>
+                  <td>Antigravity IDE</td>
+                  <td>不想整段全收時，用這個鍵「逐字／逐詞」局部接受 AI 建議，掌控感最好。</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd>+<kbd>I</kbd>（Mac：<kbd>⌘</kbd>+<kbd>I</kbd>）</td>
+                  <td>Antigravity IDE</td>
+                  <td><strong>行內指令（Inline Command）</strong>：反白一段程式或文字直接微調、加註解或重構，不會亂動到其他地方。</td>
+                </tr>
+                <tr>
+                  <td><strong>Visual Diff &amp; Auto-Fix</strong></td>
+                  <td>Antigravity IDE</td>
+                  <td>所有修改都會顯示紅綠差異比對；看到錯誤波浪線或 Problems 面板報錯時，可直接點 <strong>Diagnostic Auto-Fix</strong> 讓 AI 自動修復。</td>
+                </tr>
+                <tr>
+                  <td><code>agy</code> / <code>/help</code></td>
+                  <td>終端機（CLI）</td>
+                  <td>直接開啟輕量文字模式問問題或跑任務；查詢指令打 <code>/help</code>，安全離開按 <kbd>Ctrl+D</kbd> 兩次或輸入 <code>/exit</code>。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 5: Customizations -->
+        <section class="section filterable" id="custom" data-cat="speed">
+          <div class="section-head">
+            <h2 class="section-title">5. 讓 AI 越用越懂你的四大擴充機制</h2>
+            <span class="section-tag">打造專屬助手</span>
+          </div>
+
+          <div class="grid-2">
+            <article class="card searchable">
+              <h3>📜 Rules（永久行為準則）</h3>
+              <p>設定檔：<code>GEMINI.md</code>、<code>AGENTS.md</code>、<code>.agents/rules/*.md</code></p>
+              <p>用來規定 AI <strong>永遠該遵守的原則</strong>（例如：回答語言、排版格式、禁止修改特定檔案、程式碼風格）。</p>
+            </article>
+
+            <article class="card searchable">
+              <h3>🧰 Skills（按需載入技能包）</h3>
+              <p>設定檔：<code>skills/&lt;名稱&gt;/SKILL.md</code></p>
+              <p>把標準作業流程（SOP）教給 AI。平時只載入名稱與簡介，<strong>真正用到才展開全文</strong>，完全不浪費對話空間。</p>
+            </article>
+
+            <article class="card searchable">
+              <h3>🔌 Plugins &amp; MCP Servers</h3>
+              <p>設定檔：<code>plugins/&lt;名稱&gt;/plugin.json</code>、<code>mcp_config.json</code></p>
+              <p>一鍵幫 Antigravity 裝上外部工具（雲端文件、資料庫、設計工具、開發框架），不用自己寫串接程式。</p>
+            </article>
+
+            <article class="card searchable">
+              <h3>📂 規則存放優先順序（從高到低）</h3>
+              <ul>
+                <li><strong>1. 專案工作區</strong>：目前資料夾內的 <code>.agents/</code>、<code>GEMINI.md</code>（最高優先）</li>
+                <li><strong>2. 全域個人設定</strong>：本機 <code>~/.gemini/config/</code>（套用到所有專案）</li>
+                <li><strong>3. 系統內建技能</strong>：Antigravity 原生內建能力</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 6: 8 Pitfalls -->
+        <section class="section filterable" id="pitfalls" data-cat="pitfall">
+          <div class="section-head">
+            <h2 class="section-title">6. 新手最常踩的 8 大地雷與排雷解法</h2>
+            <span class="section-tag">點擊展開對策</span>
+          </div>
+
+          <div id="pitfallList">
+            <div class="pitfall-item open searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-left"><span class="pitfall-num">1</span> 同一個視窗從早聊到晚，AI 開始忘東忘西、答非所問</span>
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>在同一個對話裡先問報表、接著聊旅遊、又回來改程式，上下文塞滿雜訊。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>一件任務開一個 <code>New Conversation</code>；同一件長任務聊太久，先下 <code>/compact</code> 濃縮脈絡再繼續。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">2</span> 沒選對 Project（工作區）就叫 AI 讀寫檔案，結果找不到或改錯地方
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>留在空工作區或上層根目錄直接說「改一下我的簡報／專案」。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>先在左側 <code>Projects</code> 切換到正確資料夾，並善用 <code>@檔名</code> 精準指定目標檔案。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">3</span> 一句話太籠統（「幫我優化一下」），結果成品跟想像差十萬八千里
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>只給目標不給標準：「幫我整理這份文件並做得專業一點。」</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>先下 <code>/grill-me</code> 讓 AI 問清楚你的標準，或用 <code>/plan</code> 先確認步驟與輸出格式。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">4</span> 一上來就開全自動放行，沒看 Diff 就覆蓋原本的重要檔案
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>直接把權限開成 <code>always-proceed</code> 也不做版本備份。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>保留 <code>request-review</code> 或 <code>proceed-in-sandbox</code>，重要專案搭配 Git 與 IDE 的紅綠 Diff 檢視再套用。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">5</span> 要抓動態網頁或登入頁面資料，卻叫 AI 硬寫爬蟲腳本狂報錯
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>叫終端機用 <code>curl</code> 硬抓需要 JavaScript 渲染或互動點擊的網站。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>直接輸入 <code>/browser</code> 交給內建瀏覽器代理操作；遇登入或驗證畫面時自己登入後再讓它接手。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">6</span> 每次開新對話都要重複提醒同樣的格式要求
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>每次都重打一遍：「請用繁體中文、條列式、不要刪我原本註解…」</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>講過一次覺得好用，立刻下 <code>/learn</code> 或寫進 <code>GEMINI.md</code>／Rules，從此全自動遵守。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">7</span> 遇到大型或跨多檔任務硬用單一步驟硬做，做到一半漏東漏西
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>一次丟 20 個檔案要求同一輪對話直接全部改完又做測試。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>改用 <code>/plan</code> 拆階段，或用 <code>/teamwork</code> 派多個子代理分頭並進、交叉檢查。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pitfall-item searchable">
+              <button class="pitfall-trigger" type="button">
+                <span class="pitfall-num">8</span> 每天／每週固定要做的重複整理，卻還天天手動複製貼上
+                <span class="pitfall-chevron">▼</span>
+              </button>
+              <div class="pitfall-body">
+                <div class="vs-grid">
+                  <div class="vs-bad"><strong>❌ 新手地雷</strong>每週五固定手動開檔案整理週報或巡檢記錄。</div>
+                  <div class="vs-good"><strong>✅ 高手解法</strong>用 <code>/schedule</code> 設定定期自動執行，把例行工交給背景排程。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 7: Interactive Checklist -->
+        <section class="section" id="checklist">
+          <div class="section-head">
+            <h2 class="section-title">7. 新手 10 關實戰通關 Checklist</h2>
+            <span class="section-tag">進度自動儲存於本機瀏覽器</span>
+          </div>
+
+          <div class="checklist" id="checklistContainer">
+            <label class="check-item"><input type="checkbox" data-check="c1" /><div><span class="check-title">1. 建立並切換到專屬 Project 工作區</span><span class="check-sub">不要在沒有工作區的情況下直接開始大型修改。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c2" /><div><span class="check-title">2. 確認 Settings 裡的 Tool Execution Policy 與沙盒設定</span><span class="check-sub">新手建議設為 request-review 或 proceed-in-sandbox。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c3" /><div><span class="check-title">3. 在對話中使用一次 <code>@</code> 引用指定檔案</span><span class="check-sub">體驗精準把上下文餵給 AI 的差異。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c4" /><div><span class="check-title">4. 直接拖一張截圖或文件進對話框讓它判讀</span><span class="check-sub">學會用多模態視覺溝通，比打字描述錯誤畫面快 10 倍。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c5" /><div><span class="check-title">5. 用 <code>/grill-me</code> 釐清一個原本很模糊的想法</span><span class="check-sub">體會 AI 主動一題一題幫你收斂需求的威力。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c6" /><div><span class="check-title">6. 用 <code>/plan</code> 先看藍圖再執行一次多步驟任務</span><span class="check-sub">養成「先審計畫、再寫檔案」的高手習慣。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c7" /><div><span class="check-title">7. 試用 <code>/browser</code> 讓代理幫你查一個網頁或測試畫面</span><span class="check-sub">把需要點開看的網頁交給瀏覽器子代理。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c8" /><div><span class="check-title">8. 在 IDE 試用 <kbd>Tab</kbd> 補全與 <kbd>Ctrl+I</kbd>（<kbd>⌘+I</kbd>）行內修改</span><span class="check-sub">體驗不切畫面、游標處直接改扣／改字的流暢感。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c9" /><div><span class="check-title">9. 用 <code>/learn</code> 或 <code>GEMINI.md</code> 記下你的第一條個人規則</span><span class="check-sub">讓 AI 從此記住你的偏好語氣與格式。</span></div></label>
+            <label class="check-item"><input type="checkbox" data-check="c10" /><div><span class="check-title">10. 在終端機輸入 <code>agy</code> 並下一次 <code>/help</code></span><span class="check-sub">完成 CLI 入門，從此三個介面都能自由切換。</span></div></label>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已複製到剪貼簿！</div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeBtn');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const menuBtn = document.getElementById('menuBtn');
+      const searchInput = document.getElementById('searchInput');
+      const emptyState = document.getElementById('emptyState');
+      const toast = document.getElementById('toast');
+
+      // Theme persistence
+      const savedTheme = localStorage.getItem('agy_guide_theme') || 'light';
+      applyTheme(savedTheme);
+      themeBtn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('agy_guide_theme', next);
+      });
+      function applyTheme(t) {
+        root.setAttribute('data-theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ 淺色模式' : '🌙 深色模式';
+      }
+
+      // Mobile drawer
+      function closeDrawer() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+      }
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
+      });
+      overlay.addEventListener('click', closeDrawer);
+      document.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+          document.querySelectorAll('.nav-link').forEach((l) => l.classList.remove('active'));
+          link.classList.add('active');
+          closeDrawer();
+        });
+      });
+
+      // Local & Global Track Switch (Office vs Dev)
+      function switchCardTrack(card, track) {
+        card.querySelectorAll('.local-tab').forEach((b) => {
+          b.classList.toggle('active', b.dataset.track === track);
+        });
+        card.querySelectorAll('.track-panel').forEach((p) => {
+          p.classList.toggle('active', p.dataset.panel === track);
+        });
+      }
+
+      document.querySelectorAll('[data-card]').forEach((card) => {
+        card.querySelectorAll('.local-tab').forEach((btn) => {
+          btn.addEventListener('click', () => switchCardTrack(card, btn.dataset.track));
+        });
+      });
+
+      document.querySelectorAll('[data-global-track]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const track = btn.dataset.globalTrack;
+          document.querySelectorAll('[data-global-track]').forEach((b) => {
+            b.classList.toggle('active', b.dataset.globalTrack === track);
+          });
+          document.querySelectorAll('[data-card]').forEach((card) => switchCardTrack(card, track));
+        });
+      });
+
+      // Copy prompt buttons
+      let toastTimer = null;
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const text = btn.parentElement.querySelector('.prompt-text').textContent.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            showToast('已複製 Prompt 範本！');
+          } catch {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('已複製 Prompt 範本！');
+          }
+        });
+      });
+
+      // Collapsible pitfalls
+      document.querySelectorAll('.pitfall-trigger').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          trigger.closest('.pitfall-item').classList.toggle('open');
+        });
+      });
+
+      // Category Filter + Search
+      let activeFilter = 'all';
+      const filterChips = document.querySelectorAll('.filter-chip');
+      const sections = document.querySelectorAll('.filterable');
+
+      function applyFilterAndSearch() {
+        const q = searchInput.value.trim().toLowerCase();
+        let anyVisible = false;
+
+        sections.forEach((sec) => {
+          const catMatch = activeFilter === 'all' || sec.dataset.cat === activeFilter;
+          if (!catMatch) {
+            sec.classList.add('hidden');
+            return;
+          }
+          const items = sec.querySelectorAll('.searchable');
+          let secHasMatch = false;
+          items.forEach((item) => {
+            const match = !q || item.textContent.toLowerCase().includes(q);
+            item.classList.toggle('hidden', !match);
+            if (match) secHasMatch = true;
+          });
+          sec.classList.toggle('hidden', !secHasMatch);
+          if (secHasMatch) anyVisible = true;
+        });
+
+        const checklistSec = document.getElementById('checklist');
+        checklistSec.classList.toggle('hidden', activeFilter !== 'all' || Boolean(q));
+        emptyState.style.display = anyVisible ? 'none' : 'block';
+      }
+
+      filterChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          activeFilter = chip.dataset.filter;
+          filterChips.forEach((c) => c.classList.toggle('active', c === chip));
+          applyFilterAndSearch();
+        });
+      });
+      searchInput.addEventListener('input', applyFilterAndSearch);
+
+      // Checklist progress
+      const checkInputs = document.querySelectorAll('[data-check]');
+      const progressText = document.getElementById('progressText');
+      const progressFill = document.getElementById('progressFill');
+      const savedChecks = JSON.parse(localStorage.getItem('agy_guide_checks') || '{}');
+
+      function updateProgress() {
+        let done = 0;
+        checkInputs.forEach((inp) => {
+          const item = inp.closest('.check-item');
+          item.classList.toggle('done', inp.checked);
+          if (inp.checked) done += 1;
+        });
+        progressText.textContent = `${done} / ${checkInputs.length}`;
+        progressFill.style.width = `${Math.round((done / checkInputs.length) * 100)}%`;
+      }
+
+      checkInputs.forEach((inp) => {
+        inp.checked = Boolean(savedChecks[inp.dataset.check]);
+        inp.addEventListener('change', () => {
+          savedChecks[inp.dataset.check] = inp.checked;
+          localStorage.setItem('agy_guide_checks', JSON.stringify(savedChecks));
+          updateProgress();
+        });
+      });
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
